@@ -1,0 +1,30 @@
+#!/usr/bin/perl -w
+use Math::Round;
+die "Usage: emptyfolder\nOnly works for current directory\n" if @ARGV != 0;
+
+# loop throug all folders from current directory
+$count = 0;
+$folder_count = 0;
+empty("*");
+my $rate = nearest(.01, ($count / $folder_count) * 100);
+print "Empty: $count ($rate%)\nFolder: $folder_count\nEmpty";
+
+# recursive solution
+sub empty {
+  my ($path) = @_;
+  $folder_count++;
+  my @files = glob "'$path'";
+  if (@files == 0) {
+    # empty folder, to remove /* (\/\*) at the end of the string
+    $path =~ s/\/\*$//g;
+    print "$path is empty\n";
+    $count++;
+  } else {
+    foreach my $folder (@files) {
+      # get all folders
+      if (-d $folder) {
+        empty("$folder/*");
+      }
+    }
+  }
+}
