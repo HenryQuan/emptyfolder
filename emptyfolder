@@ -7,7 +7,7 @@ $count = 0;
 $folder_count = 0;
 empty("*");
 my $rate = nearest(.01, ($count / $folder_count) * 100);
-print "Empty: $count ($rate%)\nFolder: $folder_count\nEmpty";
+print "Empty: $count ($rate%)\nFolder(scd): $folder_count\nEmpty";
 
 # recursive solution
 sub empty {
